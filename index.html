@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rehan Portfolio</title>
+
+<style>
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI';
+    background: linear-gradient(135deg, #0a192f, #020c1b);
+    color: #ccd6f6;
+}
+
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 50px;
+    background: rgba(17,34,64,0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav h2 {
+    color: #00e0ff;
+}
+
+nav a {
+    color: #ccd6f6;
+    margin: 0 10px;
+    text-decoration: none;
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    width: 0;
+    height: 2px;
+    background: #00e0ff;
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* HERO */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px;
+    animation: fadeIn 1.5s ease;
+}
+
+/* IMAGE STYLE */
+.hero img {
+    width: 450px;
+    border-radius: 20px;
+    transition: 0.4s;
+    position: relative;
+
+    border-top: 4px solid #00e0ff;
+    border-left: 2px solid #0077ff;
+    border-right: 2px solid #0077ff;
+    border-bottom: none;
+
+    box-shadow: 
+        0 -5px 20px rgba(0,224,255,0.6),
+        0 10px 25px rgba(0,0,0,0.5);
+}
+
+.hero img:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 
+        0 -10px 30px rgba(0,224,255,0.9),
+        0 15px 30px rgba(0,0,0,0.7);
+}
+
+.hero h1 span {
+    color: #00e0ff;
+}
+
+/* HERO TEXT */
+.hero-text h1 {
+    font-size: 60px;
+    margin: 0;
+    animation: slideLeft 1s ease;
+}
+
+.hero-text h3 {
+    font-size: 28px;
+    color: #64ffda;
+    margin: 10px 0;
+    animation: slideLeft 1.2s ease;
+}
+
+.hero-text p {
+    font-size: 18px;
+    max-width: 500px;
+    line-height: 1.6;
+    animation: fadeIn 2s ease;
+}
+
+.hero-text span {
+    color: #00e0ff;
+    text-shadow: 0 0 10px #00e0ff;
+}
+
+/* BUTTON */
+.btn {
+    background: transparent;
+    border: 1px solid #00e0ff;
+    padding: 10px 20px;
+    color: #00e0ff;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #00e0ff;
+    color: black;
+    box-shadow: 0 0 15px #00e0ff;
+}
+
+/* SECTIONS */
+section {
+    padding: 80px 50px;
+    animation: fadeUp 1s ease;
+}
+
+/* CARD */
+.card {
+    background: #112240;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(0,224,255,0.3);
+}
+
+/* SKILLS */
+.skill-bar {
+    background: #0a192f;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.skill-fill {
+    height: 10px;
+    background: linear-gradient(90deg, #00e0ff, #0077ff);
+    animation: load 2s ease;
+}
+
+/* CONTACT */
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #0a192f;
+    border: 1px solid #00e0ff;
+    color: white;
+}
+
+button {
+    background: #00e0ff;
+    border: none;
+    padding: 10px 20px;
+    transition: 0.3s;
+}
+
+button:hover {
+    box-shadow: 0 0 10px #00e0ff;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes load {
+    from {width: 0;}
+}
+
+@keyframes slideLeft {
+    from {
+        transform: translateX(-1000px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <h2>Rehan's Portfolio.</h2>
+
+    <div>
+        <a href="#">Home</a>
+        <a href="#about">About</a>
+        <a href="#courses">Courses</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
+
+<div class="hero" id="home">
+
+    <div class="hero-text">
+        <h1>Hi, I'm <span>Rehan</span></h1>
+
+        <h3>BCA Graduate Student.</h3>
+
+        <p>
+            I build projects using HTML, CSS, JavaScript,
+            Python & Flask.
+        </p>
+	<a href="resume.pdf" target="_blank">
+    <button>My Resume</button>
+</a>
+    </div>
+
+    <img src="image/Rehan.png">
+
+</div>
+
+<section id="about">
+
+    <h2>About Me-</h2>
+
+    <div class="card">
+
+        <p>
+            My name is Rehan. I am a final-year BCA student.
+            I have knowledge of basic computer tools and I am learning
+            programming and data analysis skills.
+            I enjoy working with data and want to start my career
+            in an IT role where I can learn and contribute.
+        </p>
+
+        <p>
+            I complted my BCA Degree from Dr. Ghali college Gadhinglaj.
+            and HSC from Sambhajiroa Mane jr.college Gadhinglaj. and SSC
+            from Shri Ram Highschool Nangnur.I am currently learning <b>data analysis and Python</b>
+            to enhance my technical skills.
+            I am a quick learner, self-motivated,
+            and always eager to explore new technologies. 
+            <p><b>Languages Spoken:</b> English, Hindi, Marathi.</p>
+	    <p><b>Location:</b> Gadhinglaj, Kolhapur, Maharastra.</p>
+        </p>
+
+        <p>
+            My goal is to start my career in the IT industry
+            where I can contribute to meaningful projects,
+            grow professionally, and continuously improve my skills.
+            <b>Thank You!</b>
+        </p>
+
+        <b>EDUCATION-</b>
+
+        <p>
+            SSC – 2021 | Percentage – 80.00% <br>
+            HSC (Science) – 2023 | Percentage – 54.50%
+        </p>
+
+        <p>
+            <b>Bachelor of Computer Applications (BCA)</b>
+        </p>
+
+        <p>
+            Dr. Ghali College, Gadhinglaj –
+            Shivaji University, Kolhapur <br>
+
+            Year- 2026 |
+            First Year- 74% |
+            Second Year- 71%
+        </p>
+
+    </div>
+
+</section>
+
+<section id="courses">
+
+    <h2>Technical Skills & Soft Skills-</h2>
+
+    <div class="card">
+
+        <p>
+            <b>Computer Proficiency:</b><br>
+            CCCO (Certificate Course in Computer Operating)
+        </p>
+
+        <p>
+            <b>MS Office:</b><br>
+            Word, Excel, PowerPoint, etc.
+        </p>
+
+        <p>
+            <b>Programming Languages:</b><br>
+            C, HTML, CSS, JavaScript, Python
+        </p>
+
+        <p>
+            <b>AI Tools:</b><br>
+            Canva AI, ChatGPT, Gemini, Blackbox, etc.
+        </p>
+
+        <p>
+            <b>Operating Systems:</b><br>
+            Windows & Linux (Basics)
+        </p>
+
+        <p>
+            <b>Web Technologies:</b><br>
+            HTML, CSS, JavaScript
+        </p>
+
+        <p>
+		<b>Strenths:</b> Strong programming and analytical skills, 
+		Quick learner and Adaptable to new technologies, Effective 
+		Communication and Teamwork, Self Motivated and result-Oriented. 
+	</p>
+
+	<p>
+		<b>Interest:</b> Data Analysis, Database Management,
+		 Web Development, IT support and system Administration.
+	</p>
+    </div>
+
+</section>
+
+<!-- PROJECT SECTION -->
+
+<section id="projects">
+
+    <h2>Projects-</h2>
+
+    <div class="card">
+
+        <h3>
+            Dairy Farm |
+            HTML | CSS | JavaScript
+        </h3>
+
+        <p>
+            The dairy farm website is a static responsive website
+            to provide information about dairy products such as
+            milk, ghee, curd, lassi, butter, etc.
+
+            It is accessible on mobile, tablet, and desktop screens.
+            It does not require backend or database support.
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>
+            Stock Market Analysis and Advisory System |
+            HTML | CSS | Python | Flask | JavaScript
+        </h3>
+
+        <p>
+            The website/software application is designed to help users
+            analyze stock market trends and make informed decisions.
+
+            By offering easy-to-understand dashboards,
+            charts, and recommendations, the project aims to support
+            both beginners and experienced investors.
+        </p>
+
+    </div>
+
+</section>
+
+<section id="skills">
+
+    <h2>My Skills-</h2>
+
+    <p>Python</p>
+    <div class="skill-bar">
+        <div class="skill-fill" style="width:60%"></div>
+    </div>
+
+    <p>Flask</p>
+    <div class="skill-bar">
+        <div class="skill-fill" style="width:40%"></div>
+    </div>
+
+    <p>HTML/CSS</p>
+    <div class="skill-bar">
+        <div class="skill-fill" style="width:80%"></div>
+    </div>
+
+</section>
+
+<section id="contact">
+
+    <h2>Contact Me-</h2>
+
+    <div class="card">
+
+        <p><b>Mobile:</b> +91 8421858442</p>
+
+ <p>
+    <b>Email:</b>
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rehanm0807@gmail.com"
+       target="_blank"
+       style="color:#00e0ff; text-decoration:none;">
+       rehanm0807@gmail.com
+    </a>
+</p>
+
+        <p><b>Address:</b> Kolhapur, Maharashtra, India</p>
+
+    </div>
+
+   
+</section>
+
+<script>
+
+function submitForm() {
+
+    let name = document.getElementById("name").value.trim();
+
+    let email = document.getElementById("email").value.trim();
+
+    let message = document.getElementById("message").value.trim();
+
+    if (name === "" || email === "" || message === "") {
+
+        alert("Please fill all fields!");
+
+    } else {
+
+        alert("Message sent successfully!");
+    }
+}
+
+</script>
+
+</body>
+</html>
