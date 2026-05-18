@@ -249,6 +249,10 @@ section h2::after{
     left:0;
     bottom:-10px;
     border-radius:20px;
+
+    transform:scaleX(0);
+    transform-origin:left;
+    animation:lineAnimation 2s ease forwards;
 }
 
 /* CARD */
@@ -342,6 +346,15 @@ footer{
 }
 
 /* ANIMATIONS */
+
+	@keyframes lineAnimation{
+    from{
+        transform:scaleX(0);
+    }
+    to{
+        transform:scaleX(1);
+    }
+}
 
 @keyframes glow{
     from{
