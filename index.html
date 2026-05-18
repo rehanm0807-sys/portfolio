@@ -252,7 +252,21 @@ section h2::after{
 
     transform:scaleX(0);
     transform-origin:left;
-    transition:1s ease;
+}
+
+/* ANIMATION CLASS */
+
+section.show h2::after{
+    animation:lineAnimation 1.2s ease forwards;
+}
+
+@keyframes lineAnimation{
+    from{
+        transform:scaleX(0);
+    }
+    to{
+        transform:scaleX(1);
+    }
 }
 
 /* ACTIVE ANIMATION */
@@ -751,9 +765,16 @@ window.addEventListener("scroll", () => {
     sections.forEach(section => {
 
         const sectionTop = section.getBoundingClientRect().top;
+        const sectionBottom = section.getBoundingClientRect().bottom;
 
-        if(sectionTop < window.innerHeight - 100){
+        if(
+            sectionTop < window.innerHeight - 100 &&
+            sectionBottom > 100
+        ){
             section.classList.add("show");
+        }
+        else{
+            section.classList.remove("show");
         }
 
     });
