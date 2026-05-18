@@ -137,7 +137,7 @@ nav a:hover::after{
 /* HERO TEXT */
 
 .hero-text{
-    animation:fadeLeft 2.0s ease;
+    animation:fadeLeft 1.2s ease;
 }
 
 .hero-text h1{
@@ -252,7 +252,13 @@ section h2::after{
 
     transform:scaleX(0);
     transform-origin:left;
-    animation:lineAnimation 2s ease forwards;
+    transition:1s ease;
+}
+
+/* ACTIVE ANIMATION */
+
+section.show h2::after{
+    transform:scaleX(1);
 }
 
 /* CARD */
@@ -347,7 +353,7 @@ footer{
 
 /* ANIMATIONS */
 
-	@keyframes lineAnimation{
+@keyframes lineAnimation{
     from{
         transform:scaleX(0);
     }
@@ -714,14 +720,14 @@ such as Home, About, Technical Skills, Projects, Skills, etc.
         <p><b>Mobile:</b> +91 8421858442</p>
 
         
-           <p>
+            <p>
     <b>Email:</b>
 
     <a href="mailto:rehanm0807@gmail.com">
         rehanm0807@gmail.com
     </a>
 </p>
-      
+       
 
         <p><b>Address:</b> Kolhapur, Maharashtra, India</p>
 
@@ -736,6 +742,24 @@ such as Home, About, Technical Skills, Projects, Skills, etc.
     © 2026 Rehan Portfolio | Designed By Rehan
 
 </footer>
+<script>
 
+const sections = document.querySelectorAll("section");
+
+window.addEventListener("scroll", () => {
+
+    sections.forEach(section => {
+
+        const sectionTop = section.getBoundingClientRect().top;
+
+        if(sectionTop < window.innerHeight - 100){
+            section.classList.add("show");
+        }
+
+    });
+
+});
+
+</script>
 </body>
 </html>
