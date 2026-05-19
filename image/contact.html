@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us - Analysispro</title>
+
+    <style>
+.logo{
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{ transform: scale(1); opacity: 1; }
+    50%{ transform: scale(1.1); opacity: 0.7; }
+    100%{ transform: scale(1); opacity: 1; }
+}
+        body{
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(120deg, #1e1b4b, #312e81);
+            min-height: 100vh;
+            color: white;
+        }
+
+        /* NAVBAR */
+        .navbar{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: #111;
+        }
+
+        .logo{
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .menu{
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .menu a{
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        /* CONTACT SECTION */
+        .contact{
+            max-width: 900px;
+            margin: 60px auto;
+            background: rgba(0,0,0,0.35);
+            padding: 40px;
+            border-radius: 15px;
+            animation: fadeUp 1.2s ease;
+        }
+
+        .contact h1{
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+
+        .contact p{
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .info{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card{
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover{
+            transform: translateY(-8px);
+            box-shadow: 0 0 25px rgba(255,255,255,0.3);
+        }
+
+        .card h3{
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .card p{
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .btn{
+            display: inline-block;
+            margin-top: 35px;
+            padding: 12px 30px;
+            background: #22c55e;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover{
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
+
+        @keyframes fadeUp{
+            from{
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to{
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">Analysispro</div>
+   <ul class="menu">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    
+    <li><a href="/login">Login</a></li>
+</ul>
+
+</nav>
+
+<!-- CONTACT CONTENT -->
+<div class="contact">
+    <h1>Contact Us</h1>
+    <p>
+        Have questions, suggestions, or feedback about Analysispro?
+        We’d love to hear from you. Feel free to reach out using the details below.
+    </p>
+
+    <div class="info">
+        <div class="card">
+            <h3>📍 Address</h3>
+            <p>Analysispro Technologies</p>
+            <p>India</p>
+        </div>
+
+        <div class="card">
+            <h3>📞 Phone</h3>
+            <p>+91 9XXXXXXXXX</p>
+            <p>Mon – Fri (9 AM – 6 PM)</p>
+        </div>
+
+        <div class="card">
+            <h3>📧 Email</h3>
+            <p>support@Analysispro.com</p>
+            <p>info@Analysispro.com</p>
+        </div>
+
+        <div class="card">
+            <h3>🌐 Project Type</h3>
+            <p>Educational / Project</p>
+            <p>Stock Market Analysis</p>
+        </div>
+    </div>
+
+    <div style="text-align:center;">
+        <a href="/" class="btn">Back to Home</a>
+
+    </div>
+</div>
+
+</body>
+</html>

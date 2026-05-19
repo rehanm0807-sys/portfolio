@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Analysispro | Sign Up</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+.logo{
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{ transform: scale(1); opacity: 1; }
+    50%{ transform: scale(1.1); opacity: 0.7; }
+    100%{ transform: scale(1); opacity: 1; }
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background: linear-gradient(120deg, #1e1b4b, #312e81);
+    min-height:100vh;
+    color:white;
+}
+
+/* NAVBAR */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 50px;
+    background:#111;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.menu{
+    list-style:none;
+    display:flex;
+    gap:25px;
+}
+
+.menu a{
+    color:white;
+    text-decoration:none;
+}
+
+/* PAGE CENTER */
+.page{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height: calc(100vh - 70px);
+}
+
+/* SIGNUP BOX */
+.signup-box{
+    background: #e0e7ff;
+    width:350px;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    animation: slideUp 1s ease;
+}
+
+.signup-box h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#1e3a8a;
+}
+
+/* 🔴 ERROR MESSAGE */
+.error{
+    color:red;
+    text-align:center;
+    margin-bottom:10px;
+    font-weight:bold;
+}
+
+.signup-box input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+    outline:none;
+}
+
+.signup-box input:focus{
+    border-color:#6366f1;
+}
+
+.signup-box button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    background: linear-gradient(120deg,#0b4cc1,#8b5cf6);
+    border:none;
+    border-radius:8px;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.signup-box p{
+    text-align:center;
+    margin-top:15px;
+    font-size:14px;
+    color:#333;
+}
+
+.signup-box a{
+    color:#4f46e5;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+/* 👁️ PASSWORD TOGGLE */
+.password-box{
+    position:relative;
+}
+
+.password-box input{
+    padding-right:45px;
+}
+
+.toggle{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    font-size:18px;
+    color:#555;
+    user-select:none;
+}
+
+.toggle:hover{
+    color:#4f46e5;
+}
+
+@keyframes slideUp{
+    from{opacity:0; transform:translateY(40px);}
+    to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">Analysispro</div>
+    <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/login">Login</a></li>
+    </ul>
+</nav>
+
+<div class="page">
+    <div class="signup-box">
+        <h2>Create Account</h2>
+
+        <!-- 🔴 ERROR MESSAGE SHOW -->
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST">
+            <!-- ✅ VALUE RETAIN -->
+            <input type="text" name="username" placeholder="Username" value="{{ username or '' }}" required>
+            <input type="email" name="email" placeholder="Email" value="{{ email or '' }}" required>
+
+            <div class="password-box">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <span class="toggle" onclick="togglePassword()">👁️</span>
+            </div>
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <p>Already have an account?
+            <a href="/login">Login</a>
+        </p>
+    </div>
+</div>
+
+<script>
+function togglePassword(){
+    const pass = document.getElementById("password");
+    pass.type = pass.type === "password" ? "text" : "password";
+}
+</script>
+
+</body>
+</html>

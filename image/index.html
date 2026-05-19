@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysispro - Home</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+.logo{
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{ transform: scale(1); opacity: 1; }
+    50%{ transform: scale(1.1); opacity: 0.7; }
+    100%{ transform: scale(1); opacity: 1; }
+}
+        body{
+            margin:0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(120deg, #1e1b4b, #312e81);
+            min-height:100vh;
+            color:white;
+        }
+
+        /* 🔵 NAVBAR */
+        .navbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:15px 40px;
+            background:rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo{
+            font-size:24px;
+            font-weight:bold;
+        }
+
+        .menu{
+            list-style:none;
+            display:flex;
+            gap:20px;
+        }
+
+        .menu li a{
+            color:white;
+            text-decoration:none;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        .menu li a:hover{
+            color:#ffd700;
+        }
+
+        /* 🔥 HERO SECTION */
+        .hero{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:60px 80px;
+        }
+
+        .hero-text{
+            max-width:50%;
+        }
+
+        .hero-text h1{
+            font-size:60px;
+            margin-bottom:15px;
+            animation: slideFade 1.5s ease-out;
+            text-shadow: 0 0 18px rgba(255,255,255,0.6);
+        }
+
+        .hero-text p{
+            font-size:22px;
+            margin-bottom:30px;
+            animation: fadeIn 2.2s ease-in-out;
+        }
+
+        .hero-text button{
+            font-size:18px;
+            padding:14px 36px;
+            border-radius:30px;
+            border:none;
+            cursor:pointer;
+            background: linear-gradient(90deg,#22c55e,#4ade80);
+            color:white;
+            animation: pulse 2s infinite;
+            transition:0.3s;
+        }
+
+        .hero-text button:hover{
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(255,255,255,0.5);
+        }
+
+        /* 🖼 HERO IMAGE */
+        .hero-image img{
+            width:420px;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+        }
+
+        /* ✨ ANIMATIONS */
+        @keyframes slideFade{
+            from{ opacity:0; transform:translateY(30px); }
+            to{ opacity:1; transform:translateY(0); }
+        }
+
+        @keyframes fadeIn{
+            from{ opacity:0; }
+            to{ opacity:1; }
+        }
+
+        @keyframes pulse{
+            0%{ box-shadow:0 0 0 rgba(255,255,255,0.4); }
+            50%{ box-shadow:0 0 20px rgba(255,255,255,0.6); }
+            100%{ box-shadow:0 0 0 rgba(255,255,255,0.4); }
+        }
+
+        @keyframes float{
+            0%{ transform:translateY(0); }
+            50%{ transform:translateY(-15px); }
+            100%{ transform:translateY(0); }
+        }
+
+        /* 📱 RESPONSIVE */
+        @media(max-width:900px){
+            .hero{
+                flex-direction:column;
+                text-align:center;
+            }
+            .hero-text{
+                max-width:100%;
+            }
+            .hero-image img{
+                margin-top:30px;
+                width:300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- 🔵 NAVBAR -->
+<nav class="navbar">
+    <div class="logo">AnalysisPro</div>
+<ul class="menu">
+
+    <!-- 🔓 Always show Login & Signup -->
+    
+    <li><a href="/signup">Sign Up</a></li>
+
+    <!-- 🔐 Show Logout only if user logged in -->
+    {% if session.get('user') %}
+        <li><a href="/logout">Logout</a></li>
+    {% endif %}
+
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/about">About</a></li>
+
+</ul>
+
+
+</nav>
+
+
+<!-- 🔥 HERO -->
+<section class="hero">
+    <div class="hero-text">
+        <h1>Welcome to AnalysisPro</h1>
+        <p>Make your Analysis safe, smart and secure with us.</p>
+        {% if session.get('user') %}
+    <button onclick="window.location.href='/stocks'">Select Stock</button>
+{% else %}
+    <button onclick="window.location.href='/signup'">Select Stock</button>
+{% endif %}
+
+    </div>
+
+    <div class="hero-image">
+        <!-- ✅ IMAGE ADDED -->
+        <img src="{{ url_for('static', filename='images/investpro-hero.png') }}" alt="InvestPro Illustration">
+
+    </div>
+</section>
+
+</body>
+</html>

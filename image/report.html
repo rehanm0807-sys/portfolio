@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Report</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body{
+            margin:0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg,#0f172a,#1e293b);
+            color:white;
+            text-align:center;
+
+            max-width:900px;
+            margin:auto;
+            padding:20px;
+        }
+
+        h1{
+            margin-top:10px;
+            font-size:24px;
+        }
+
+        .container{
+            display:flex;
+            justify-content:center;
+            gap:15px;
+            margin-top:20px;
+            flex-wrap:wrap;
+        }
+
+        .card{
+            background:#1e293b;
+            padding:15px 25px;
+            border-radius:12px;
+            font-size:14px;
+            min-width:150px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.4);
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:scale(1.05);
+        }
+
+        canvas{
+            margin-top:30px;
+            max-width:500px;
+            height:200px !important;
+        }
+
+        .progress-box{
+            margin-top:30px;
+        }
+
+        .bar{
+            width:40%;
+            height:10px;
+            background:#334155;
+            margin:10px auto;
+            border-radius:10px;
+        }
+
+        .fill{
+            height:100%;
+            background:linear-gradient(to right,#22c55e,#3b82f6);
+            border-radius:10px;
+        }
+
+        table{
+            width:100%;
+            margin-top:20px;
+            border-collapse:collapse;
+        }
+
+        th, td{
+            padding:10px;
+        }
+
+        th{
+            background:#334155;
+        }
+
+        tr{
+            background:#1e293b;
+            text-align:center;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>📊 Stock Report</h1>
+
+<div class="container">
+    <div class="card">Total Stocks: {{total_stocks}}</div>
+    <div class="card">Profit Stocks: {{profit}}</div>
+    <div class="card">Loss Stocks: {{loss}}</div>
+</div>
+
+<!-- Chart -->
+<canvas id="myChart"></canvas>
+
+<!-- Progress -->
+<div class="progress-box">
+    <h2 style="font-size:18px;">Performance</h2>
+    <div class="bar">
+        <div class="fill" style="width: {{ (profit/(profit+loss))*100 if (profit+loss)>0 else 0 }}%"></div>
+    </div>
+</div>
+
+<!-- STOCK TABLE -->
+<h2 style="margin-top:30px;">📋 Stock Details</h2>
+
+<table>
+    <tr>
+        <th>Stock Name</th>
+        <th>Price</th>
+        <th>Status</th>
+    </tr>
+
+    {% for stock in stocks %}
+    <tr>
+        <td>{{stock['name']}}</td>
+        <td>{{stock['price']}}</td>
+        <td>
+            {% if stock['status'] == 'profit' %}
+                <span style="color:#22c55e;">Profit 📈</span>
+            {% else %}
+                <span style="color:#ef4444;">Loss 📉</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<!-- AI PREDICTION -->
+<h2 style="margin-top:40px;">🤖 AI Stock Prediction</h2>
+
+<table>
+    <tr>
+        <th>Stock Name</th>
+        <th>Price</th>
+        <th>Prediction</th>
+    </tr>
+
+    {% for stock in stocks %}
+    <tr>
+        <td>{{stock['name']}}</td>
+        <td>{{stock['price']}}</td>
+        <td>
+            {% if "Strong Buy" in stock['prediction'] %}
+                <span style="color:#22c55e;">{{stock['prediction']}}</span>
+            {% elif "Risk" in stock['prediction'] %}
+                <span style="color:#ef4444;">{{stock['prediction']}}</span>
+            {% else %}
+                <span style="color:#facc15;">{{stock['prediction']}}</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<!-- 🔔 ALERT SECTION (FIXED POSITION) -->
+<h2 style="margin-top:30px;">🔔 Alerts</h2>
+
+<div class="container">
+    {% for stock in stocks %}
+    <div class="card">
+        <b>{{stock['name']}}</b><br><br>
+
+        {% if "High Price" in stock['alert'] %}
+            <span style="color:#22c55e;">{{stock['alert']}}</span>
+
+        {% elif "Risk" in stock['alert'] %}
+            <span style="color:#ef4444;">{{stock['alert']}}</span>
+
+        {% else %}
+            <span style="color:#3b82f6;">{{stock['alert']}}</span>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<!-- CHART SCRIPT -->
+<script>
+var ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Profit', 'Loss'],
+        datasets: [{
+            label: 'Stocks',
+            data: [{{profit}}, {{loss}}],
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+</script>
+
+</body>
+</html>

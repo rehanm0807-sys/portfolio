@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Stock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+
+    <style>
+.logo{
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{ transform: scale(1); opacity: 1; }
+    50%{ transform: scale(1.1); opacity: 0.7; }
+    100%{ transform: scale(1); opacity: 1; }
+}
+        body{
+            margin:0;
+            font-family: Arial, Helvetica, sans-serif;
+           background: linear-gradient(120deg, #1e1b4b, #312e81);
+            min-height: 100vh;
+        }
+
+        header{
+            background:#312e81;
+            color:white;
+            padding:15px;
+            text-align:center;
+            font-size:20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .container{
+            max-width:650px;
+            margin:20px auto;
+            animation: fadeUp 1s ease;
+        }
+
+        /* 🔍 Search bar */
+        .search-box{
+            max-width:650px;
+            margin:15px auto 0;
+	    background: #e0e7ff;
+            padding:0 10px;
+        }
+
+        .search-box input{
+            width:100%;
+	    background: #e0e7ff;
+            padding:12px 15px;
+            border-radius:8px;
+            border:none;
+            outline:none;
+            font-size:15px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .search-box input::placeholder{
+            color:#666;
+        }
+
+        .stock{
+            background: #e0e7ff;
+            padding:12px 15px;
+            margin:8px 10px;
+            border-radius:6px;
+            box-shadow:0 2px 6px rgba(0,0,0,0.15);
+            cursor:pointer;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stock:hover{
+            background:#eaf0ff;
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+        }
+
+        .stock::before{
+            content:"";
+            position:absolute;
+            left:0;
+            top:0;
+            height:100%;
+            width:5px;
+            background:#3f5bd8;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stock:hover::before{
+            transform: scaleY(1);
+        }
+
+        .symbol{
+            font-weight:bold;
+            color:#3f5bd8;
+            font-size:16px;
+            transition: color 0.3s ease;
+        }
+
+        .stock:hover .symbol{
+            color:#1d4ed8;
+        }
+
+        .name{
+            font-size:14px;
+            color:#444;
+        }
+
+        .back{
+            display:inline-block;
+            margin:15px;
+            text-decoration:none;
+            color:#3f5bd8;
+            font-weight:bold;
+            transition: all 0.3s ease;
+        }
+
+        .back:hover{
+            color:#fff;
+            transform: translateX(-5px);
+        }
+
+        @keyframes fadeUp{
+            from{
+                opacity:0;
+                transform: translateY(20px);
+            }
+            to{
+                opacity:1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<style>
+        body{
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(120deg, #1e1b4b, #312e81);
+            min-height: 100vh;
+            color: white;
+        }
+
+        /* NAVBAR */
+        .navbar{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: #111;
+        }
+
+        .logo{
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .menu{
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .menu a{
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        /* CONTACT SECTION */
+        .contact{
+            max-width: 900px;
+            margin: 60px auto;
+            background: rgba(0,0,0,0.35);
+            padding: 40px;
+            border-radius: 15px;
+            animation: fadeUp 1.2s ease;
+        }
+
+        .contact h1{
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+
+        .contact p{
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .info{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card{
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover{
+            transform: translateY(-8px);
+            box-shadow: 0 0 25px rgba(255,255,255,0.3);
+        }
+
+        .card h3{
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .card p{
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .btn{
+            display: inline-block;
+            margin-top: 35px;
+            padding: 12px 30px;
+            background: #22c55e;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover{
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
+
+        @keyframes fadeUp{
+            from{
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to{
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">Analysispro</div>
+   <ul class="menu">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/login">Login</a></li>
+</ul>
+
+</nav>
+
+
+
+    <header>Select Stock</header>
+
+   
+
+
+    <!-- 🔍 SEARCH BAR -->
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 Search Stock" onkeyup="searchStock()">
+    </div>
+
+    <div class="container">
+
+        <!-- INDIAN STOCKS -->
+        <div class="stock" onclick="openStock('AXISBANK')">
+            <div class="symbol">AXISBANK</div>
+            <div class="name">Axis Bank Ltd</div>
+        </div>
+
+        <div class="stock" onclick="openStock('BAJFINANCE')">
+            <div class="symbol">BAJFINANCE</div>
+            <div class="name">Bajaj Finance Ltd</div>
+        </div>
+
+        <div class="stock" onclick="openStock('BHARTIARTL')">
+            <div class="symbol">BHARTIARTL</div>
+            <div class="name">Bharti Airtel Ltd</div>
+        </div>
+
+        <div class="stock" onclick="openStock('HCLTECH')">
+            <div class="symbol">HCLTECH</div>
+            <div class="name">HCL Technologies Ltd</div>
+        </div>
+
+        <div class="stock" onclick="openStock('HDFCBANK')">
+            <div class="symbol">HDFCBANK</div>
+            <div class="name">HDFC Bank Ltd</div>
+        </div>
+
+        <div class="stock" onclick="openStock('HINDUNILVR')">
+            <div class="symbol">HINDUNILVR</div>
+            <div class="name">Hindustan Unilever Ltd</div>
+        </div>
+
+        <div class="stock" onclick="openStock('ICICIBANK')">
+            <div class="symbol">ICICIBANK</div>
+            <div class="name">ICICI Bank Ltd</div>
+        </div>
+
+        <div class="stock" onclick="openStock('INFY')">
+            <div class="symbol">INFY</div>
+            <div class="name">Infosys Ltd</div>
+        </div>
+
+        <div class="stock" onclick="openStock('ITC')">
+            <div class="symbol">ITC</div>
+            <div class="name">ITC Ltd</div>
+        </div>
+
+        <div class="stock" onclick="openStock('KOTAKBANK')">
+            <div class="symbol">KOTAKBANK</div>
+            <div class="name">Kotak Mahindra Bank</div>
+        </div>
+
+        <div class="stock" onclick="openStock('LT')">
+            <div class="symbol">LT</div>
+            <div class="name">Larsen & Toubro</div>
+        </div>
+
+        <div class="stock" onclick="openStock('RELIANCE')">
+            <div class="symbol">RELIANCE</div>
+            <div class="name">Reliance Industries Ltd</div>
+        </div>
+
+        <div class="stock" onclick="openStock('SBIN')">
+            <div class="symbol">SBIN</div>
+            <div class="name">State Bank of India</div>
+        </div>
+
+        <div class="stock" onclick="openStock('TCS')">
+            <div class="symbol">TCS</div>
+            <div class="name">Tata Consultancy Services</div>
+        </div>
+
+        <div class="stock" onclick="openStock('TECHM')">
+            <div class="symbol">TECHM</div>
+            <div class="name">Tech Mahindra Ltd</div>
+        </div>
+
+        <div class="stock" onclick="openStock('WIPRO')">
+            <div class="symbol">WIPRO</div>
+            <div class="name">Wipro Ltd</div>
+        </div>
+
+        <!-- US STOCKS -->
+        <div class="stock" onclick="openStock('AAPL')">
+            <div class="symbol">AAPL</div>
+            <div class="name">Apple Inc</div>
+        </div>
+
+        <div class="stock" onclick="openStock('AMZN')">
+            <div class="symbol">AMZN</div>
+            <div class="name">Amazon.com Inc</div>
+        </div>
+
+        <div class="stock" onclick="openStock('GOOGL')">
+            <div class="symbol">GOOGL</div>
+            <div class="name">Alphabet Inc (Google)</div>
+        </div>
+
+        <div class="stock" onclick="openStock('META')">
+            <div class="symbol">META</div>
+            <div class="name">Meta Platforms Inc</div>
+        </div>
+
+        <div class="stock" onclick="openStock('MSFT')">
+            <div class="symbol">MSFT</div>
+            <div class="name">Microsoft Corporation</div>
+        </div>
+
+        <div class="stock" onclick="openStock('NFLX')">
+            <div class="symbol">NFLX</div>
+            <div class="name">Netflix Inc</div>
+        </div>
+
+        <div class="stock" onclick="openStock('NVDA')">
+            <div class="symbol">NVDA</div>
+            <div class="name">NVIDIA Corporation</div>
+        </div>
+
+        <div class="stock" onclick="openStock('TSLA')">
+            <div class="symbol">TSLA</div>
+            <div class="name">Tesla Inc</div>
+        </div>
+
+    </div>
+
+    <script>
+        function openStock(symbol){
+            localStorage.setItem("stock", symbol);
+            window.location.href = "/livechart";
+
+        }
+
+        function searchStock(){
+            let input = document.getElementById("searchInput").value.toUpperCase();
+            let stocks = document.getElementsByClassName("stock");
+
+            for(let i=0;i<stocks.length;i++){
+                let text = stocks[i].innerText.toUpperCase();
+                stocks[i].style.display = text.includes(input) ? "" : "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

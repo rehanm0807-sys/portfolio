@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Analysispro</title>
+
+    <style>
+.logo{
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{ transform: scale(1); opacity: 1; }
+    50%{ transform: scale(1.1); opacity: 0.7; }
+    100%{ transform: scale(1); opacity: 1; }
+}
+        body{
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+           background: linear-gradient(120deg, #1e1b4b, #312e81);
+            min-height: 100vh;
+            color: white;
+        }
+
+        /* NAVBAR */
+        .navbar{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: #111;
+        }
+
+        .logo{
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .menu{
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .menu a{
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        /* ABOUT SECTION */
+        .about{
+            max-width: 900px;
+            margin: 60px auto;
+            background: rgba(0,0,0,0.35);
+            padding: 40px;
+            border-radius: 15px;
+            animation: fadeUp 1.2s ease;
+        }
+
+        .about h1{
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+
+        .about h2{
+            font-size: 30px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+
+        .about p{
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            text-align: justify;
+        }
+
+        .features{
+            margin-top: 20px;
+        }
+
+        .features ul{
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .features li{
+            font-size: 18px;
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .features li::before{
+            content: "✔";
+            position: absolute;
+            left: 0;
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .btn{
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 28px;
+            background: #22c55e;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover{
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
+
+        @keyframes fadeUp{
+            from{
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to{
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">Analysispro</div>
+    <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/login">Login</a></li>
+    </ul>
+</nav>
+
+<!-- ABOUT CONTENT -->
+<div class="about">
+    <h1>About Analysispro</h1>
+
+    <p>
+        <strong>Analysispro</strong> is a web-based stock market assistance and analysis platform
+        designed to help users understand investment trends in a simple and interactive way.
+        The project focuses on guiding users through stock selection, market analysis,
+        risk evaluation, and future price prediction using visual charts.
+    </p>
+
+    <p>
+        The main idea behind Analysispro is to provide a beginner-friendly investment environment
+        where users can explore how financial platforms work without complexity.
+        It helps users gain confidence by presenting market-related data in a clean,
+        structured, and easy-to-understand format.
+    </p>
+
+    <h2>Project Objectives</h2>
+    <p>
+        The primary objective of this project is to demonstrate the practical implementation
+        of front-end web development concepts while simulating a real-world investment system.
+        Analysispro aims to educate users on stock market basics such as price movements,
+        risk levels, technical indicators, and prediction trends.
+    </p>
+
+    <h2>How Analysispro Works</h2>
+    <p>
+        Users start by logging into the system. Once logged in, they can select a stock
+        and move step-by-step through different analysis pages including Live Chart,
+        Risk Meter, Technical Analysis, Prediction Chart, and Market Watch.
+        Each page visually represents market data to enhance understanding.
+    </p>
+
+    <h2>Key Features</h2>
+    <div class="features">
+        <ul>
+            <li>User Login & Session Management using Local Storage</li>
+            <li>Stock Selection and Page-to-Page Data Flow</li>
+            <li>Live Price Charts using Chart.js</li>
+            <li>Risk Analysis and Technical Indicators</li>
+            <li>Market Watch & Future Price Prediction</li>
+            <li>Modern UI with Animations and Effects</li>
+            <li>Responsive and User-Friendly Design</li>
+        </ul>
+    </div>
+
+    <h2>Technologies Used</h2>
+    <p>
+        Analysispro is developed using core web technologies such as
+        <strong>HTML</strong> for structure,
+        <strong>CSS</strong> for styling and animations,
+        and <strong>JavaScript</strong> for logic, interactivity,
+        and client-side data storage.
+        Charts and visual analytics are implemented using the <strong>Chart.js</strong> library.
+    </p>
+
+    <h2>Future Enhancements</h2>
+    <p>
+        In the future, Analysispro can be extended by integrating real-time stock market APIs,
+        backend authentication, database storage, advanced prediction algorithms,
+        and user portfolio management features.
+        This makes it scalable into a complete investment analysis platform.
+    </p>
+
+    <p>
+        Overall, Analysispro serves as an excellent academic mini-project
+        that combines finance concepts with web development skills,
+        making it both educational and practical.
+    </p>
+
+    <a href="/" class="btn">Back to Home</a>
+
+</div>
+
+</body>
+</html>

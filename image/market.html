@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Market Watch</title>
+
+<style>
+.logo{
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{ transform: scale(1); opacity: 1; }
+    50%{ transform: scale(1.1); opacity: 0.7; }
+    100%{ transform: scale(1); opacity: 1; }
+}
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(120deg, #1e1b4b, #312e81);
+    min-height: 100vh;
+    color: white;
+    text-align: center;
+}
+
+/* NAVBAR */
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: #111;
+}
+
+.left-nav{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.menu-icon{
+    font-size:26px;
+    cursor:pointer;
+}
+
+.logo{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.menu{
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.menu a{
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* SIDEBAR */
+.side-menu{
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background: #111;
+    padding-top: 60px;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+/* ✅ FIX CLASS */
+.side-menu.open{
+    left:0;
+}
+
+.side-menu a{
+    display:block;
+    padding:15px 25px;
+    color:white;
+    text-decoration:none;
+    border-bottom:1px solid #333;
+}
+
+.side-menu a:hover{
+    background:#222;
+}
+
+/* OVERLAY */
+.overlay{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.4);
+    display:none;
+    z-index:999;
+}
+
+/* TITLE */
+h2{
+    margin-top: 40px;
+    font-size: 42px;
+    text-shadow: 0 0 18px rgba(255,255,255,0.6);
+}
+
+/* PRICE EFFECT */
+.price{
+    font-size: 28px;
+    margin: 18px 0;
+    animation: fadeUp 0.7s ease;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* BUTTON */
+button{
+    padding: 14px 28px;
+    margin: 15px;
+    border: none;
+    border-radius: 25px;
+    background: #2d1457;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+button:hover{
+    background: #3c1c74;
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(255,255,255,0.4);
+}
+
+a{
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="left-nav">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="logo">Analysispro</div>
+    </div>
+
+    <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/login">Login</a></li>
+    </ul>
+</nav>
+
+<!-- SIDEBAR -->
+<div id="sideMenu" class="side-menu">
+    <a href="/stocks">Stocks</a>
+    <a href="/risk">Risk</a>
+    <a href="/livechart">Live Chart</a>
+    <a href="/prediction">Prediction Chart</a>
+    <a href="/technical">Technical Analysis</a>
+    <a href="/market">Market</a>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+<h2 id="title">Market Watch</h2>
+
+<p id="today" class="price"></p>
+<p id="next" class="price"></p>
+
+<p id="closing" class="price"></p>
+<button onclick="showClosing()">Show Closing Price</button>
+
+<a href="/prediction"><button>Prediction</button></a>
+<a href="/thankyou"><button>Thank You</button></a>
+
+<script>
+
+/* ✅ SIDEBAR FIXED LOGIC */
+let menu = document.getElementById("sideMenu");
+let overlay = document.getElementById("overlay");
+
+function toggleMenu(){
+    menu.classList.toggle("open");
+
+    if(menu.classList.contains("open")){
+        overlay.style.display = "block";
+    } else {
+        overlay.style.display = "none";
+    }
+}
+
+function closeMenu(){
+    menu.classList.remove("open");
+    overlay.style.display = "none";
+}
+
+/* MARKET DATA */
+const marketData = {
+    TCS: {today: 4108.6, next: 4230.4, closing: 4185.2},
+    INFY: {today: 1482.3, next: 1501.8, closing: 1490.6},
+    RELIANCE: {today: 2910.5, next: 2980.2, closing: 2945.3},
+    HDFCBANK: {today: 1544.8, next: 1562.6, closing: 1552.1},
+    ICICIBANK: {today: 1080.1, next: 1098.9, closing: 1090.4},
+    SBIN: {today: 748.4, next: 760.2, closing: 755.6},
+    ITC: {today: 462.7, next: 470.5, closing: 468.9}
+};
+
+let stock = localStorage.getItem("stock") || "TCS";
+let data = marketData[stock] || marketData["TCS"];
+
+document.getElementById("title").innerText = stock + " Market Watch";
+document.getElementById("today").innerText = "Today's Opening Price: ₹" + data.today;
+document.getElementById("next").innerText = "Next Day Price: ₹" + data.next;
+
+/* CLOSING PRICE */
+function showClosing(){
+    let now = new Date();
+    let hours = now.getHours();
+
+    if(hours >= 16){
+        document.getElementById("closing").innerText =
+            "Today's Closing Price: ₹" + data.closing;
+    } else {
+        alert("Closing price will be shown after 4 PM. Thank you!");
+    }
+}
+
+</script>
+
+</body>
+</html>

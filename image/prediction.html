@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Prediction Chart</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+.logo{
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{ transform: scale(1); opacity: 1; }
+    50%{ transform: scale(1.1); opacity: 0.7; }
+    100%{ transform: scale(1); opacity: 1; }
+}
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(120deg, #1e1b4b, #312e81);
+    min-height: 100vh;
+    color: white;
+    text-align: center;
+}
+
+/* NAVBAR */
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: #111;
+}
+
+.left-nav{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.menu-icon{
+    font-size:26px;
+    cursor:pointer;
+}
+
+.logo{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.menu{
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.menu a{
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* SIDEBAR */
+.side-menu{
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background: #111;
+    padding-top: 60px;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+.side-menu a{
+    display:block;
+    padding:15px 25px;
+    color:white;
+    text-decoration:none;
+    border-bottom:1px solid #333;
+}
+
+.side-menu a:hover{
+    background:#222;
+}
+
+/* OVERLAY */
+.overlay{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.4);
+    display:none;
+    z-index:999;
+}
+
+/* TITLE */
+h2{
+    margin-top: 25px;
+}
+
+/* CHART */
+canvas{
+    width: 900px !important;
+    height: 450px !important;
+    margin: 30px auto;
+    display: block;
+    background: #e0e7ff;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+/* BUTTONS */
+button{
+    padding: 10px 22px;
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    background: #2d1457;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover{
+    background: #3c1c74;
+}
+
+a{ text-decoration: none; }
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+
+    <div class="left-nav">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="logo">Analysispro</div>
+    </div>
+
+    <ul class="menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/login">Login</a></li>
+    </ul>
+</nav>
+
+<!-- SIDEBAR -->
+<div id="sideMenu" class="side-menu">
+<a href="/stocks">Stocks</a>
+    <a href="/risk">Risk</a>
+    <a href="/livechart">Live Chart</a>
+    <a href="/prediction">Prediction Chart</a>
+    <a href="/technical">Technical Analysis</a>
+    <a href="/market">Market</a>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay" onclick="closeMenu()"></div>
+
+<h2 id="title">Prediction Chart</h2>
+
+<canvas id="pred"></canvas>
+
+<script>
+
+/* SIDEBAR LOGIC */
+let menu = document.getElementById("sideMenu");
+let overlay = document.getElementById("overlay");
+
+function toggleMenu(){
+    if(menu.style.left === "0px"){
+        closeMenu();
+    }else{
+        menu.style.left = "0";
+        overlay.style.display = "block";
+    }
+}
+
+function closeMenu(){
+    menu.style.left = "-250px";
+    overlay.style.display = "none";
+}
+
+/* ===============================
+   🔹 STOCK DATA
+   =============================== */
+
+const predictionData = {
+    "TCS": {
+        actual: [3800, 3700, 3600, 3800, 4000],
+        predicted: [3750, 3650, 3550, 3700, 3900]
+    },
+    "INFY": {
+        actual: [1500, 1480, 1460, 1490, 1520],
+        predicted: [1480, 1460, 1440, 1470, 1500]
+    },
+    "AXISBANK": {
+        actual: [1000, 1020, 1010, 1030, 1050],
+        predicted: [990, 1010, 1000, 1020, 1040]
+    },
+    "BAJFINANCE": {
+        actual: [7000, 7100, 7050, 7200, 7300],
+        predicted: [6950, 7050, 7000, 7150, 7250]
+    },
+    "BHARTIARTL": {
+        actual: [900, 920, 910, 930, 950],
+        predicted: [890, 910, 900, 920, 940]
+    },
+    "HCLTECH": {
+        actual: [1200, 1180, 1170, 1190, 1210],
+        predicted: [1180, 1160, 1150, 1170, 1190]
+    },
+    "HDFCBANK": {
+        actual: [1600, 1620, 1610, 1630, 1650],
+        predicted: [1580, 1600, 1590, 1610, 1630]
+    },
+    "HINDUNILVR": {
+        actual: [2500, 2520, 2510, 2530, 2550],
+        predicted: [2480, 2500, 2490, 2510, 2530]
+    },
+    "ICICIBANK": {
+        actual: [1000, 1015, 1005, 1025, 1040],
+        predicted: [980, 995, 990, 1010, 1025]
+    },
+    "ITC": {
+        actual: [450, 455, 452, 458, 460],
+        predicted: [445, 450, 448, 452, 455]
+    },
+    "KOTAKBANK": {
+        actual: [1800, 1820, 1810, 1830, 1850],
+        predicted: [1780, 1800, 1790, 1810, 1830]
+    },
+    "LT": {
+        actual: [3000, 3050, 3020, 3080, 3100],
+        predicted: [2950, 3000, 2980, 3040, 3060]
+    },
+    "RELIANCE": {
+        actual: [2500, 2520, 2510, 2550, 2580],
+        predicted: [2480, 2500, 2490, 2520, 2550]
+    },
+    "SBIN": {
+        actual: [600, 610, 605, 620, 630],
+        predicted: [590, 600, 595, 610, 620]
+    },
+    "TECHM": {
+        actual: [1300, 1320, 1310, 1340, 1360],
+        predicted: [1280, 1300, 1290, 1320, 1340]
+    },
+    "WIPRO": {
+        actual: [450, 460, 455, 470, 480],
+        predicted: [440, 450, 445, 460, 470]
+    },
+    "AAPL": {
+        actual: [180, 182, 181, 183, 185],
+        predicted: [178, 180, 179, 181, 183]
+    },
+    "AMZN": {
+        actual: [140, 142, 141, 145, 148],
+        predicted: [138, 140, 139, 142, 145]
+    },
+    "GOOGL": {
+        actual: [2700, 2720, 2710, 2750, 2780],
+        predicted: [2680, 2700, 2690, 2720, 2750]
+    },
+    "META": {
+        actual: [320, 325, 322, 330, 335],
+        predicted: [315, 320, 318, 325, 330]
+    },
+    "MSFT": {
+        actual: [350, 355, 352, 360, 365],
+        predicted: [345, 350, 348, 355, 360]
+    },
+    "NFLX": {
+        actual: [450, 455, 452, 460, 470],
+        predicted: [440, 445, 442, 450, 460]
+    },
+    "NVDA": {
+        actual: [900, 920, 910, 940, 960],
+        predicted: [880, 900, 890, 920, 940]
+    },
+    "TSLA": {
+        actual: [250, 260, 255, 270, 280],
+        predicted: [240, 250, 245, 260, 270]
+    }
+};
+
+const defaultData = {
+    actual: [100, 105, 102, 108, 110],
+    predicted: [98, 103, 100, 105, 108]
+};
+
+let stock = localStorage.getItem("stock") || "TCS";
+let data = predictionData[stock] || defaultData;
+
+document.getElementById("title").innerText =
+    stock + " Prediction Chart";
+
+/* CHART */
+new Chart(document.getElementById("pred"),{
+    type:'line',
+    data:{
+        labels:["Day 1","Day 2","Day 3","Day 4","Day 5"],
+        datasets:[
+            {
+                label:"Actual",
+                data:data.actual,
+                borderColor:"#22c55e",
+                tension:0.4
+            },
+            {
+                label:"Predicted",
+                data:data.predicted,
+                borderColor:"#ef4444",
+                borderDash:[6,6],
+                tension:0.4
+            }
+        ]
+    },
+    options:{
+        responsive:false,
+        maintainAspectRatio:false
+    }
+});
+
+</script>
+
+<a href="/technical"><button>⬅Analysis</button></a>
+<a href="/market"><button>Market➡</button></a>
+
+</body>
+</html>
