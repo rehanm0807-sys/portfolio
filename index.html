@@ -24,11 +24,26 @@ html{
 
 body{
     font-family:'Poppins',sans-serif;
-    background:linear-gradient(135deg,#0a192f,#020c1b);
-    color:#ccd6f6;
+    background:
+        radial-gradient(circle at top left,
+        rgba(59,130,246,0.35),
+        transparent 35%),
+
+        radial-gradient(circle at bottom right,
+        rgba(37,99,235,0.25),
+        transparent 35%),
+
+        linear-gradient(
+        135deg,
+        #020617 0%,
+        #0f172a 30%,
+        #1e3a8a 70%,
+        #2563eb 100%
+        );
+
+    color:#e2e8f0;
     overflow-x:hidden;
 }
-
 /* SCROLLBAR */
 
 ::-webkit-scrollbar{
